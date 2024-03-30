@@ -16,7 +16,7 @@ import com.dcalano.demo.service.BaseService;
 
 import jakarta.validation.Valid;
 
-public abstract class BaseController<E, D, T> {
+public abstract class BaseController<E, D, T> implements CrudController<D, T> {
 
 	protected final BaseService<E, T> service;
 
@@ -27,6 +27,7 @@ public abstract class BaseController<E, D, T> {
 		this.mapper = mapper;
 	}
 
+	@Override
 	@PostMapping
 	public D create(@Valid @RequestBody D dto) {
 		return Optional.ofNullable(dto) //
@@ -36,11 +37,13 @@ public abstract class BaseController<E, D, T> {
 				.orElse(null);
 	}
 
+	@Override
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable T id) {
 		service.delete(id);
 	}
 
+	@Override
 	@GetMapping("/{id}")
 	public D get(@PathVariable T id) {
 		return Optional.ofNullable(service.get(id)) //
@@ -48,11 +51,13 @@ public abstract class BaseController<E, D, T> {
 				.orElse(null);
 	}
 
+	@Override
 	@GetMapping
 	public Page<D> list(Pageable pageable) {
 		return service.list(pageable).map(mapper::toDto);
 	}
 
+	@Override
 	@PatchMapping("/{id}")
 	public D update(@PathVariable T id, @Valid @RequestBody D dto) {
 		return Optional.of(dto) //

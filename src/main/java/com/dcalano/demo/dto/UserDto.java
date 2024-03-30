@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class UserDto implements BaseDto {
+public class UserDto {
 
 	private Long id;
 

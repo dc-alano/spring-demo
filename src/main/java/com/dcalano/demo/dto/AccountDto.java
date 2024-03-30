@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @UniqueValue(entityClass = Account.class, fields = { "username" })
-public class AccountDto implements BaseDto {
+public class AccountDto {
 
 	private Long id;
 
