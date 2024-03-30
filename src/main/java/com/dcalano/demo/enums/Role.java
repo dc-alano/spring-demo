@@ -1,4 +1,4 @@
-package com.dcalano.demo;
+package com.dcalano.demo.enums;
 
 public enum Role {
 	ADMIN, USER;

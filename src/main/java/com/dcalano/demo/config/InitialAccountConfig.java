@@ -4,9 +4,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.dcalano.demo.Role;
 import com.dcalano.demo.entity.Account;
 import com.dcalano.demo.entity.User;
+import com.dcalano.demo.enums.Role;
 import com.dcalano.demo.repository.UserRepository;
 
 import lombok.AllArgsConstructor;

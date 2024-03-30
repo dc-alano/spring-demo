@@ -6,6 +6,6 @@ import com.dcalano.demo.service.action.Get;
 import com.dcalano.demo.service.action.List;
 import com.dcalano.demo.service.action.Update;
 
-public interface GenericService<E, T> extends Create<E>, Delete<T>, Get<E, T>, List<E>, Update<E, T> {
+public interface CrudService<E, T> extends Create<E>, Delete<T>, Get<E, T>, List<E>, Update<E, T> {
 
 }

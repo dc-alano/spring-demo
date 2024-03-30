@@ -1,6 +1,6 @@
 package com.dcalano.demo.entity;
 
-import com.dcalano.demo.Role;
+import com.dcalano.demo.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

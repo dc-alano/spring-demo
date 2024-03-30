@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
-public abstract class BaseService<E, T> implements GenericService<E, T> {
+public abstract class BaseService<E, T> implements CrudService<E, T> {
 
 	protected final JpaRepository<E, T> repository;
 
