@@ -4,9 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.dcalano.demo.entity.BaseEntity;
+
 import jakarta.persistence.EntityNotFoundException;
 
-public abstract class BaseService<E, T> implements CrudService<E, T> {
+public abstract class BaseService<E extends BaseEntity<T>, T> implements CrudService<E, T> {
 
 	protected final JpaRepository<E, T> repository;
 
@@ -36,9 +38,9 @@ public abstract class BaseService<E, T> implements CrudService<E, T> {
 	}
 
 	@Override
-	public E update(T id, E user) {
+	public E update(T id, E entity) {
 		return repository.findById(id) //
-				.map(x -> user) //
+				.map(x -> entity) //
 				.map(repository::save) //
 				.orElseThrow(EntityNotFoundException::new);
 	}

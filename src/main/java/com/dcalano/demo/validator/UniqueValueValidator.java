@@ -41,7 +41,7 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 		}
 
 		Long count = (Long) query.getSingleResult();
-		return count > 0;
+		return count <= 0;
 	}
 
 	private String generateQueryLanguage(String entityName) {
@@ -51,17 +51,13 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 				.append(entityName) //
 				.append(" AS e ") //
 				.append("WHERE ") //
-				.append("(e.") //
-				.append(idFieldName) //
-				.append(" IS NULL AND ") //
+				.append("(:id IS NULL AND ") //
 				.append(fieldNameQuery) //
 				.append(") ") //
 				.append("OR ") //
-				.append("(e.") //
+				.append("(:id IS NOT NULL AND e.") //
 				.append(idFieldName) //
-				.append(" IS NOT NULL AND e.") //
-				.append(idFieldName) //
-				.append("<> :id AND ") //
+				.append(" <> :id AND ") //
 				.append(fieldNameQuery) //
 				.append(")") //
 				.toString();

@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.dcalano.demo.dto.BaseDto;
+import com.dcalano.demo.entity.BaseEntity;
+import com.dcalano.demo.exception.ApplicationException;
 import com.dcalano.demo.mapper.BaseMapper;
 import com.dcalano.demo.service.BaseService;
 
 import jakarta.validation.Valid;
 
-public abstract class BaseController<E, D, T> implements CrudController<D, T> {
+public abstract class BaseController<E extends BaseEntity<T>, D extends BaseDto<T>, T> implements CrudController<D, T> {
 
 	protected final BaseService<E, T> service;
 
@@ -30,11 +33,11 @@ public abstract class BaseController<E, D, T> implements CrudController<D, T> {
 	@Override
 	@PostMapping
 	public D create(@Valid @RequestBody D dto) {
-		return Optional.ofNullable(dto) //
+		return Optional.of(dto) //
 				.map(mapper::toEntity) //
 				.map(service::create) //
 				.map(mapper::toDto) //
-				.orElse(null);
+				.orElseThrow(ApplicationException::new);
 	}
 
 	@Override
@@ -46,9 +49,9 @@ public abstract class BaseController<E, D, T> implements CrudController<D, T> {
 	@Override
 	@GetMapping("/{id}")
 	public D get(@PathVariable T id) {
-		return Optional.ofNullable(service.get(id)) //
+		return Optional.of(service.get(id)) //
 				.map(mapper::toDto) //
-				.orElse(null);
+				.orElseThrow(ApplicationException::new);
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public abstract class BaseController<E, D, T> implements CrudController<D, T> {
 				.map(mapper::toEntity) //
 				.map(x -> service.update(id, x)) //
 				.map(mapper::toDto) //
-				.orElseThrow();
+				.orElseThrow(ApplicationException::new);
 	}
 
 }
